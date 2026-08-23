@@ -1,0 +1,2 @@
+Selected Model,MAE,RMSE,MAPE (%),Overforecast Days,Underforecast Days,Average Overforecast Error,Average Underforecast Error
+Seasonal Naive,139.24827501920896,550.0423227455527,8.423971130113548,18,12,967.1008222222222,595.5298333333333
