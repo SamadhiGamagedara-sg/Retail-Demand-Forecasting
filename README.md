@@ -29,7 +29,7 @@ The project focuses primarily on **one-day-ahead forecasting**, using informatio
 
 ---
 
-## 🎯 Objectives
+##  Objectives
 
 The main objectives of this project were to:
 
@@ -46,7 +46,7 @@ The main objectives of this project were to:
 
 ---
 
-## 📊 Dataset
+## 📊Dataset
 
 The project uses the **Kaggle Store Sales** dataset.
 
@@ -87,7 +87,7 @@ with:
 
 ---
 
-## 🔄 Project Workflow
+##  Project Workflow
 
 The project was developed as a structured 10-stage forecasting pipeline:
 
@@ -117,7 +117,7 @@ Raw Retail Data
 
 ---
 
-## 🔍 1. Data Understanding
+##  1. Data Understanding
 
 The first stage focused on understanding the structure and characteristics of the available datasets.
 
@@ -141,7 +141,7 @@ sales
 
 ---
 
-## 🧹 2. Data Preprocessing
+##  2. Data Preprocessing
 
 The preprocessing stage prepared the raw retail data for forecasting.
 
@@ -160,7 +160,7 @@ The processed data was then used for the time-series feature engineering stage.
 
 ---
 
-## 📈 3. Exploratory Data Analysis
+## 3. Exploratory Data Analysis
 
 EDA was performed to understand the underlying demand behaviour before modelling.
 
@@ -181,7 +181,7 @@ The business analysis showed that the final evaluation period had an average dai
 
 ---
 
-## ⚙️ 4. Time-Series Feature Engineering
+##  4. Time-Series Feature Engineering
 
 Time-series features were created to allow machine learning models to learn historical demand behaviour.
 
@@ -281,7 +281,7 @@ An important finding from the comparison is that a more complex model does not a
 
 ---
 
-## 🏆 Final Forecasting Model
+## Final Forecasting Model
 
 ### Selected Model: Seasonal Naive
 
@@ -297,7 +297,7 @@ The selected model achieved an average absolute forecasting error of approximate
 
 ---
 
-## 📉 Forecast Error Analysis
+##  Forecast Error Analysis
 
 The project also examined the direction and magnitude of forecasting errors.
 
@@ -329,7 +329,7 @@ Therefore, evaluating the *direction* of forecast errors is useful in addition t
 
 ---
 
-## 📦 Business Insights
+##  Business Insights
 
 The final business analysis focuses on converting forecasting results into practical retail decisions.
 
@@ -357,7 +357,7 @@ Forecast error analysis can help identify periods where the business is more lik
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```text
 Retail-Demand-Forecasting/
@@ -418,7 +418,7 @@ Retail-Demand-Forecasting/
 
 ---
 
-## 🧰 Technologies Used
+##  Technologies Used
 
 ### Programming
 
@@ -453,7 +453,7 @@ Retail-Demand-Forecasting/
 
 ---
 
-## 📚 Notebook Guide
+##  Notebook Guide
 
 | Notebook                                   | Purpose                                              |
 | ------------------------------------------ | ---------------------------------------------------- |
@@ -470,7 +470,7 @@ Retail-Demand-Forecasting/
 
 ---
 
-## ▶️ How to Run the Project
+##  How to Run the Project
 
 ### 1. Clone the repository
 
@@ -515,7 +515,7 @@ Running the notebooks sequentially reproduces the complete forecasting workflow.
 
 ---
 
-## 📌 Key Takeaways
+##  Key Takeaways
 
 ### 1. Seasonal patterns matter
 
@@ -539,7 +539,7 @@ A forecasting system can provide useful information for inventory, replenishment
 
 ---
 
-## 🚀 Future Improvements
+##  Future Improvements
 
 Potential improvements to the project include:
 
@@ -555,7 +555,7 @@ Potential improvements to the project include:
 
 ---
 
-## 📈 Project Outcome
+##  Project Outcome
 
 This project demonstrates an end-to-end approach to retail demand forecasting, from raw data understanding and preprocessing through time-series feature engineering, baseline modelling, statistical forecasting, machine learning, model validation, final forecasting, and business interpretation.
 
@@ -571,7 +571,7 @@ Rather than assuming that the most complex model is automatically the best, the 
 
 ---
 
-## 👤 Author
+##  Author
 
 **Samadhi Gamagedara**
 
