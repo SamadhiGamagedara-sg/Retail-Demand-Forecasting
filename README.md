@@ -1,58 +1,112 @@
-# Retail Demand Forecasting
+# Retail Demand Forecasting Using Time Series Analysis & Machine Learning
 
-End-to-end time-series forecasting on the Kaggle [Store Sales](https://www.kaggle.com/competitions/store-sales-time-series-forecasting) dataset. The project covers data preparation, EDA, feature engineering, statistical and machine-learning models, tuning, error analysis, and business interpretation.
+An end-to-end retail demand forecasting project using the [Kaggle Store Sales – Time Series Forecasting dataset](https://www.kaggle.com/competitions/store-sales-time-series-forecasting). This project explores historical sales patterns, develops predictive features, compares statistical and machine learning models, and evaluates forecasting performance to support data-driven retail inventory planning.
 
-Models are compared on the highest-volume series (**Store 45, GROCERY I**), forecasting daily sales one day ahead.
+The primary model comparison focuses on **Store 45 – GROCERY I**, forecasting daily sales one day ahead.
 
-## Key Results
+## Project Highlights
 
-- **XGBoost was the best model**, with a **48.3% lower MAE** than the Seasonal Naive benchmark.
-- **Hyperparameter tuning made XGBoost worse**, so the tuned configuration did not generalize beyond the validation split.
-- **SARIMAX was the weakest model**, performing worse than the Seasonal Naive benchmark.
+- Developed an end-to-end time-series forecasting workflow, from data preparation to model evaluation.
+- Engineered 36 features, including lagged sales, rolling statistics, calendar variables, promotions, holidays, transactions, and oil prices.
+- Compared Seasonal Naive, SARIMAX, XGBoost, and tuned XGBoost models.
+- Evaluated prediction errors using Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE).
+- Analyzed forecast errors and retail business patterns to identify potential inventory-planning implications.
+
+## Model Performance
+
+XGBoost achieved the lowest MAE among the four models, outperforming the Seasonal Naive benchmark by approximately **48.3% in MAE**.
 
 | Rank | Model | MAE | RMSE |
-|---|---|---|---|
+|---:|---|---:|---:|
 | 1 | XGBoost | 677.56 | 795.69 |
 | 2 | Tuned XGBoost | 834.37 | 1,047.69 |
 | 3 | Seasonal Naive | 1,309.86 | 1,656.28 |
 | 4 | SARIMAX | 2,070.18 | 2,626.44 |
 
-*All models scored on the same 22 test days (2017-07-17 to 2017-08-15). Lower is better.*
+*Evaluation note: Results use the same 22 test observations from July 17 to August 15, 2017. Lower MAE and RMSE indicate better predictive performance. The evaluation window contains weekdays only.*
 
-## Dataset
+### Key Findings
 
-- 3,000,888 training rows, 2013-01-01 to 2017-08-15, 54 stores, 33 product families
-- Supporting data: stores, oil prices, holidays, transactions
-- The Kaggle test file has no sales values, so all evaluation uses chronological holdouts from the training data
+- **XGBoost performed best:** It substantially reduced forecasting errors compared with the seasonal benchmark.
+- **Tuning did not improve performance:** The tuned configuration performed worse than the original XGBoost model, highlighting the importance of validation and generalization.
+- **SARIMAX underperformed:** It produced higher errors than the Seasonal Naive benchmark in this experiment.
 
-## Approach
+## Dataset Overview
 
-**Features (36):** calendar and cyclical encodings, sales lags (1, 2, 3, 7, 14, 28 days), rolling means and standard deviations, promotion, holiday, transaction and oil-price features. All history-based features use lagged values to prevent leakage.
+The project uses the [Kaggle Store Sales dataset](https://www.kaggle.com/competitions/store-sales-time-series-forecasting), which contains retail sales information from Ecuador.
 
-**Models**
-- **Seasonal Naive:** sales from the same weekday one week earlier
-- **SARIMAX:** `(1,1,1)(1,1,1,7)` with promotion and oil price as exogenous variables
-- **XGBoost:** lag, rolling and calendar features; 500 trees, depth 8, learning rate 0.05
-- **Tuned XGBoost:** five configurations compared on a validation split
+- **Training records:** 3,000,888 rows
+- **Time period:** January 1, 2013 – August 15, 2017
+- **Stores:** 54
+- **Product families:** 33
+- **Supporting data:** Store metadata, oil prices, holidays and events, and transactions
 
-**Baseline across all series (validation Jan to Jun 2017):** Naive MAE 139.25, Seasonal Naive MAE 102.19. These are averaged over all 1,782 series and are not comparable to the single-series table above.
+The competition's test dataset does not contain observed sales targets. Therefore, model evaluation was conducted using chronological holdouts from the training data.
 
-**XGBoost error analysis (30-day holdout):** MAE 641.55, RMSE 780.44, MAPE 6.57%. The model over-forecast on 18 days (average error 685) and under-forecast on 12 days (average error 576).
+## Methodology
+
+### 1. Data Preparation and Exploratory Data Analysis
+
+- Examined sales distributions, trends, seasonality, and store-level demand patterns.
+- Investigated the relationships between sales, promotions, weekdays, and other supporting variables.
+- Prepared chronological training, validation, and testing periods.
+
+### 2. Feature Engineering
+
+Created 36 predictive features covering:
+
+- **Time features:** Day, month, weekday, and cyclical calendar encodings.
+- **Lag features:** Previous sales values at 1, 2, 3, 7, 14, and 28 days.
+- **Rolling statistics:** Historical rolling means and standard deviations.
+- **External variables:** Promotions, holidays, transactions, and oil prices.
+
+History-based features use past observations to reduce the risk of data leakage.
+
+### 3. Forecasting Models
+
+| Model | Description |
+|---|---|
+| Seasonal Naive | Uses sales from the same weekday in the previous week. |
+| SARIMAX | Statistical time-series model with promotion and oil price as external variables. |
+| XGBoost | Gradient-boosted trees trained on engineered time-series features. |
+| Tuned XGBoost | Evaluates five hyperparameter configurations using a validation split. |
+
+The XGBoost configuration used 500 trees, a maximum depth of 8, and a learning rate of 0.05. SARIMAX used the configuration `(1,1,1)(1,1,1,7)`.
+
+### 4. Model Evaluation and Error Analysis
+
+Models were evaluated using MAE and RMSE. Additional analysis examined forecast bias and the potential implications of over-forecasting and under-forecasting.
+
+**Additional XGBoost error analysis:**
+
+- MAE: 641.55
+- RMSE: 780.44
+- MAPE: 6.57%
+- Over-forecasting: 18 days
+- Under-forecasting: 12 days
+
+These metrics come from a separate 30-day holdout and should not be directly compared with the 22-observation model comparison table.
 
 ## Business Insights
 
-- **Weekly pattern:** Sunday (13,961) and Saturday (12,153) are the busiest days. Thursday (7,112) is the quietest.
-- **Promotions:** average sales on promotion days were 31.1% higher than on other days (an association, not adjusted for weekday effects).
-- **Error direction:** over-forecasting raises holding costs and under-forecasting risks stockouts, so safety stock should account for the direction of error, not just its size.
+- **Weekly demand patterns:** Sunday recorded the highest average sales (13,961), followed by Saturday (12,153). Thursday had the lowest average sales (7,112).
+- **Promotion impact:** Average sales on promotion days were 31.1% higher than on non-promotion days. This is an observed association and does not establish a causal effect.
+- **Inventory planning:** Over-forecasting may increase holding costs, while under-forecasting may contribute to stockouts. Understanding forecast error direction can help inform inventory and replenishment decisions.
 
 ## Limitations
 
-- Comparison covers one series and a short holdout, so results may not generalize to other stores or families.
-- The XGBoost holdout contains weekdays only, so the common-window comparison covers weekdays only.
-- XGBoost and Seasonal Naive use observed lags (one-step-ahead), while SARIMAX produces a 30-step forecast, so its result is not strictly like-for-like.
-- Tuning used five configurations and a single validation split, with no rolling-origin cross-validation.
+- The main model comparison focuses on one store and product family, limiting generalizability.
+- The common evaluation window contains weekdays only.
+- XGBoost and Seasonal Naive use observed lagged sales for one-step-ahead predictions, whereas SARIMAX generates a multi-step forecast. This difference limits strict comparability.
+- Hyperparameter tuning used five configurations and a single validation split rather than rolling-origin cross-validation.
+- Performance on other stores, product families, and future periods requires further evaluation.
 
+## Technologies Used
+
+**Python** · **Pandas** · **NumPy** · **Scikit-learn** · **XGBoost** · **Statsmodels** · **Matplotlib** · **Seaborn** · **Time Series Analysis** · **Feature Engineering** · **Model Evaluation**
 
 ## Author
 
-**Samadhi Gamagedara** · [GitHub](https://github.com/SamadhiGamagedara-sg)
+**Samadhi Gamagedara**
+
+[GitHub Profile](https://github.com/SamadhiGamagedara-sg)
